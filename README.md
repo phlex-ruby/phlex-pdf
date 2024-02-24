@@ -1,8 +1,6 @@
-# Phlex::Pdf
+# Phlex::PDF
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/phlex/pdf`. To experiment with that code, run `bin/console` for an interactive prompt.
+Phlex PDF lets you compose PDF files with components in pure Ruby. It's a thin layer sits on the shoulder of giants, [Prawn](https://github.com/prawnpdf/prawn), that encourages a component-first approach to building PDF documents.
 
 ## Installation
 
