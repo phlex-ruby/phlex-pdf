@@ -13,7 +13,13 @@ module Phlex
     def call(document, &block)
       @document = document
       around_template do
-        view_template(&block)
+        if block_given?
+          view_template do
+            yield_content(&block)
+          end
+        else
+          view_template
+        end
       end
     end
 
@@ -38,12 +44,21 @@ module Phlex
       nil
     end
 
+    def yield_content(&block)
+      return unless block_given?
+      yield self
+    end
+
     def render(renderable, &block)
       case renderable
-      when String
-        @document.text renderable
       when Phlex::PDF
         renderable.call(@document, &block)
+      when String
+        @document.text renderable
+      when Class
+        render(renderable.new, &block) if renderable < Phlex::PDF
+      when Enumerable
+        renderable.each { |r| render(r, &block) }
       else
         raise ArgumentError, "You can't render a #{renderable.inspect}."
       end
