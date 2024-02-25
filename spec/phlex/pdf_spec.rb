@@ -56,10 +56,21 @@ class PageComponent < ApplicationComponent
       WarningComponent.new("Danger!"),
       WarningComponent.new("Don't Panic!")
     ]
+
+    render Proc.new { text "Rendered from Proc.new", color: "00FF00" }
+    render proc { text "Rendered from proc", color: "00FFFF" }
+    render lambda { text "Rendered from lambda", color: "FFFF00" }
+    render -> { text "Rendered from ->", color: "99FF00" }
+    render method(:calm)
+
     render BodyComponent do |body|
       body.greet "Brad"
     end
     render FooterComponent.new
+  end
+
+  def calm
+    text "Rendered from Method", color: "F0F0F0"
   end
 end
 

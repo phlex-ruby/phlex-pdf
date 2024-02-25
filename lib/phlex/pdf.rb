@@ -46,7 +46,14 @@ module Phlex
 
     def yield_content(&block)
       return unless block_given?
-      yield self
+
+      if block.arity.zero?
+        # This handles lambdas and ->
+        yield
+      else
+        # This handles Proc and proc
+        yield self
+      end
     end
 
     def render(renderable, &block)
@@ -57,6 +64,8 @@ module Phlex
         @document.text renderable
       when Class
         render(renderable.new, &block) if renderable < Phlex::PDF
+      when Proc, Method
+        yield_content(&renderable)
       when Enumerable
         renderable.each { |r| render(r, &block) }
       else
