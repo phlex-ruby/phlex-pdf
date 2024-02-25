@@ -46,7 +46,11 @@ class NoticeComponent < ApplicationComponent
   end
 end
 
+# Render it to a file
 NoticeComponent.render_file "hello.pdf"
+
+# Or to a string
+NoticeComponent.render
 ```
 
 ## Development

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phlex-pdf (0.1.0)
+    phlex-pdf (0.1.1)
       matrix (~> 0.4)
       prawn (~> 2.0)
 
