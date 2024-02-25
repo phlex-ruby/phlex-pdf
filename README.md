@@ -14,6 +14,8 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
+`Phlex::PDF` is a thin wrapper around `Prawn::View`, so you'll want to become familiar with [PrawnPDF](http://prawnpdf.org/), particularly the [PrawnPDF Manual](https://prawnpdf.org/manual.pdf).
+
 ```ruby
 require "phlex/pdf"
 
@@ -44,7 +46,7 @@ class NoticeComponent < ApplicationComponent
   end
 end
 
-NoticeComponent.pdf.render_file "poof.pdf"
+NoticeComponent.render_file "hello.pdf"
 ```
 
 ## Development
