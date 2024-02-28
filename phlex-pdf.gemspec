@@ -36,6 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "prawn", "~> 2.0"
   spec.add_dependency "matrix", "~> 0.4"
 
+  spec.add_development_dependency("pdf-inspector", "~> 1.0")
+
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

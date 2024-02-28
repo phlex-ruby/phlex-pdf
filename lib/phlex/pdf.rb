@@ -10,7 +10,7 @@ module Phlex
 
     def document = @document
 
-    def call(document = self.class.blank, &block)
+    def call(document, &block)
       @document = document
       around_template do
         if block_given?
@@ -45,8 +45,7 @@ module Phlex
     end
 
     def to_pdf(...)
-      call
-      @document.render(...)
+      self.class.blank.tap{ |doc| call doc }.render(...)
     end
 
     def yield_content(&block)

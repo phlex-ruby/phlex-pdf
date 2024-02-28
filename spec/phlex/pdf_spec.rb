@@ -87,7 +87,18 @@ class PDFDocument < PDFComponent
 end
 
 RSpec.describe Phlex::PDF do
+  let(:pages) do
+    PDF::Inspector::Page.analyze(PDFDocument.new.to_pdf).pages
+  end
+
   it "generates a PDF" do
-    PDFDocument.new.to_pdf
+    expect(pages.size).to eq(3)
+    expect(pages[0][:strings]).to include("Hi", "There")
+    expect(pages[1][:strings]).to include("Friendly", "Pal")
+    expect(pages[2][:strings]).to include("Whats", "Up")
+
+    pages.each do |page|
+      expect(page[:strings]).to include("Header", "Rendered from Proc.new", "Rendered from proc", "Rendered from lambda", "Rendered from ->", "Rendered from Method", "Rendered from lambda", "Rendered from ->", "Rendered from Method", "Hello Brad", "Danger!", "Don't Panic!")
+    end
   end
 end
