@@ -76,18 +76,10 @@ module Phlex
     end
 
     class << self
-      def document(*, **, &)
+      def document(...)
         Prawn::Document.new.tap do |document|
-          new(*, **, &).call(document)
+          new(...).call(document)
         end
-      end
-
-      def render(...)
-        document.render(...)
-      end
-
-      def render_file(...)
-        document.render_file(...)
       end
     end
   end

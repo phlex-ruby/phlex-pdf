@@ -50,8 +50,17 @@ class BodyComponent < ApplicationComponent
 end
 
 class PageComponent < ApplicationComponent
+  def initialize(title, subtitle: )
+    @title = title
+    @subtitle = subtitle
+  end
+
   def view_template
     render HeaderComponent.new
+
+    text @title
+    text @subtitle
+
     render [
       WarningComponent.new("Danger!"),
       WarningComponent.new("Don't Panic!")
@@ -76,6 +85,6 @@ end
 
 RSpec.describe Phlex::PDF do
   it "generates a PDF" do
-    PageComponent.render
+    PageComponent.document("Hi", subtitle: "There").render
   end
 end
