@@ -10,7 +10,7 @@ module Phlex
 
     include Prawn::View
 
-    def call(document, &block)
+    def call(document = Prawn::Document.new, &block)
       @document = document
       around_template do
         if block_given?
@@ -76,9 +76,10 @@ module Phlex
     end
 
     class << self
-      def document(document = Prawn::Document.new)
-        new.call(document)
-        document
+      def document(*, **, &)
+        Prawn::Document.new.tap do |document|
+          new(*, **, &).call(document)
+        end
       end
 
       def render(...)
