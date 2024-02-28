@@ -19,26 +19,32 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ```ruby
 require "phlex/pdf"
 
-class ApplicationComponent < Phlex::PDF
-  def before_template
-    text "Before #{self.class.name}"
-  end
+class PDFComponent < Phlex::PDF
+end
+
+class PDFPage < PDFComponent
+  # Creates a new page
+  def before_template = create_new_page
 
   def after_template
-    text "After #{self.class.name}"
+    text "Page #{document.page_number}"
   end
 end
 
-class BoxComponent < ApplicationComponent
+class BoxComponent < PDFComponent
   def view_template
     text "I'm a box"
     yield
   end
 end
 
-class NoticeComponent < ApplicationComponent
+class MyPage < PDFPage
+  def initialize(title:)
+    @title = title
+  end
+
   def view_template
-    text "Hello World!"
+    text @title
 
     render BoxComponent.new do
       text "Look! I'm a box inside a box!"
@@ -46,11 +52,8 @@ class NoticeComponent < ApplicationComponent
   end
 end
 
-# Render it to a file
-NoticeComponent.render_file "hello.pdf"
-
-# Or to a string
-NoticeComponent.render
+# Render the PDF
+MyPage.new(title: "This is a PDF!").to_pdf
 ```
 
 ## Development

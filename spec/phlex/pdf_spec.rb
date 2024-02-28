@@ -2,21 +2,14 @@
 
 require "phlex/pdf"
 
-class ApplicationComponent < Phlex::PDF
-  def before_template
-    text "Before #{self.class.name}"
-  end
-
-  def view_template
-    text self.class.name
-  end
-
-  def after_template
-    text "After #{self.class.name}"
-  end
+class PDFComponent < Phlex::PDF
 end
 
-class WarningComponent < ApplicationComponent
+class PDFPage < PDFComponent
+  def before_template = start_new_page
+end
+
+class WarningComponent < PDFComponent
   def initialize(message)
     @message = message
   end
@@ -26,19 +19,19 @@ class WarningComponent < ApplicationComponent
   end
 end
 
-class HeaderComponent < ApplicationComponent
+class HeaderComponent < PDFComponent
   def view_template
-    text "Header"
+    text "Header", size: 24
   end
 end
 
-class FooterComponent < ApplicationComponent
+class FooterComponent < PDFComponent
   def view_template
-    text "Footer"
+    text "Page #{document.page_number}"
   end
 end
 
-class BodyComponent < ApplicationComponent
+class BodyComponent < PDFComponent
   def view_template
     render "Body"
     yield if block_given?
@@ -49,7 +42,7 @@ class BodyComponent < ApplicationComponent
   end
 end
 
-class PageComponent < ApplicationComponent
+class MyPage < PDFPage
   def initialize(title, subtitle: )
     @title = title
     @subtitle = subtitle
@@ -83,8 +76,18 @@ class PageComponent < ApplicationComponent
   end
 end
 
+class PDFDocument < PDFComponent
+  def view_template
+    render [
+      MyPage.new("Hi", subtitle: "There"),
+      MyPage.new("Friendly", subtitle: "Pal"),
+      MyPage.new("Whats", subtitle: "Up")
+    ]
+  end
+end
+
 RSpec.describe Phlex::PDF do
   it "generates a PDF" do
-    PageComponent.document("Hi", subtitle: "There").render
+    PDFDocument.new.to_pdf
   end
 end

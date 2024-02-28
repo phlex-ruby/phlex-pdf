@@ -6,11 +6,11 @@ require "matrix"
 
 module Phlex
   class PDF
-    class Error < StandardError; end
-
     include Prawn::View
 
-    def call(document = Prawn::Document.new, &block)
+    def document = @document
+
+    def call(document = self.class.blank, &block)
       @document = document
       around_template do
         if block_given?
@@ -42,6 +42,11 @@ module Phlex
     # @return [nil]
     def after_template
       nil
+    end
+
+    def to_pdf(...)
+      call
+      @document.render(...)
     end
 
     def yield_content(&block)
@@ -76,11 +81,8 @@ module Phlex
     end
 
     class << self
-      def document(...)
-        Prawn::Document.new.tap do |document|
-          new(...).call(document)
-        end
-      end
+      # Components should override this method to define their view.
+      def blank = Prawn::Document.new(skip_page_creation: true)
     end
   end
 end
