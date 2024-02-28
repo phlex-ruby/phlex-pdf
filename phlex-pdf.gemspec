@@ -35,9 +35,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "prawn", "~> 2.0"
   spec.add_dependency "matrix", "~> 0.4"
+  spec.add_dependency "zeitwerk", "~> 2.0"
 
-  spec.add_development_dependency("pdf-inspector", "~> 1.0")
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  spec.add_development_dependency "pdf-inspector", "~> 1.0"
 end

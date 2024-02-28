@@ -3,9 +3,16 @@
 require_relative "pdf/version"
 require "prawn"
 require "matrix"
+require "zeitwerk"
 
 module Phlex
   class PDF
+    Loader = Zeitwerk::Loader.for_gem_extension(Phlex).tap do |loader|
+      loader.ignore "#{__dir__}/generators"
+      loader.inflector.inflect("pdf" => "PDF")
+      loader.setup
+    end
+
     include Prawn::View
 
     def document = @document

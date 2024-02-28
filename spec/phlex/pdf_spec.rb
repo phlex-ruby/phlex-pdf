@@ -102,3 +102,9 @@ RSpec.describe Phlex::PDF do
     end
   end
 end
+
+RSpec.describe Phlex::PDF::Loader do
+  it "resolves modules" do
+    expect { Phlex::PDF::Rails::Helpers }.not_to raise_error
+  end
+end

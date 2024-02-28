@@ -4,6 +4,7 @@ PATH
     phlex-pdf (0.1.2)
       matrix (~> 0.4)
       prawn (~> 2.0)
+      zeitwerk (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -41,6 +42,7 @@ GEM
     rspec-support (3.13.0)
     ruby-rc4 (0.1.5)
     ttfunk (1.7.0)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   arm64-darwin-23
