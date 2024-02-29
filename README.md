@@ -19,9 +19,12 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ```ruby
 require "phlex/pdf"
 
+# Base component. You'll put methods here that are shared across all components.
 class PDFComponent < Phlex::PDF
 end
 
+# Page has a `before_template` method that created a new page. Without a page
+# nothing will render and an error would occur.
 class PDFPage < PDFComponent
   # Creates a new page
   def before_template = create_new_page
@@ -31,6 +34,8 @@ class PDFPage < PDFComponent
   end
 end
 
+# Example component inherits from PDFComponent. Note that it does NOT create any
+# new pages.
 class BoxComponent < PDFComponent
   def view_template
     text "I'm a box"
@@ -38,6 +43,8 @@ class BoxComponent < PDFComponent
   end
 end
 
+# The final PDF that's rendered should be a subclass of PDFPage. Components
+# can be rendered within a PDFPage.
 class MyPage < PDFPage
   def initialize(title:)
     @title = title
@@ -52,7 +59,7 @@ class MyPage < PDFPage
   end
 end
 
-# Render the PDF
+# Render the PDF to a string.
 MyPage.new(title: "This is a PDF!").to_pdf
 ```
 
