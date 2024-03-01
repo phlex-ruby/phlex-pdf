@@ -4,7 +4,7 @@ require_relative "lib/phlex/pdf/version"
 
 Gem::Specification.new do |spec|
   spec.name = "phlex-pdf"
-  spec.version = Phlex::Pdf::VERSION
+  spec.version = Phlex::PDF::VERSION
   spec.authors = ["Brad Gessler"]
   spec.email = ["bradgessler@gmail.com"]
 

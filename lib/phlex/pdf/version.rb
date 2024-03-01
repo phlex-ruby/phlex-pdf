@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Phlex
-  module Pdf
+  class PDF
     VERSION = "0.1.2"
   end
 end
